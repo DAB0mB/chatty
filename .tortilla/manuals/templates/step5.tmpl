@@ -34,14 +34,16 @@ However, if our paginated results are ordered by newest element and elements are
 Cursors look to solve the very problem page numbering presents. Cursors are a lot like a bookmark — we can stick it where we left off, and even if we shove more papers randomly into our book and tear a bunch out, we can still find where we last left off.
 
 Let’s say we’re trying to show a paginated list of books ordered by title. With the cursor $after which is the title of the last book shown on the current page, we could get the next page of results in SQL as follows:
+
 ```
 SELECT * FROM books
 WHERE title > $after
 ORDER BY title LIMIT $page_size;
 ```
+
 In GraphQL, we would need our query response to include cursors:
 
-```
+```graphql
 booksByTitle(after: "Moby Dick", pageSize: 10) {
   cursors {
     after
@@ -61,7 +63,7 @@ Cursors solve the challenges afflicting page numbering, but we can do even bette
 ## Relay Cursor Connections
 [Relay Cursor Connections](http://relay%20cursor%20connections%20specification/) specify a standardized GraphQL Query response for paginated data. In our previous `booksByTitle` example, it would look like this:
 
-```
+```graphql
 booksByTitle(first:10 after:"Moby Dick") {
   edges {
     node {
@@ -85,7 +87,7 @@ In a nutshell, the shape of the response — the [“connection object”](h
 
 Each edge contains a `node` which is the element itself — in our case the book — and a `cursor`, which represents the cursor for the node element. Ideally, a cursor should be a **serializable opaque** cursor, meaning we shouldn’t have to worry about its formatting for pagination to work. So to match the spec, our `booksByTitle` query should look more like this:
 
-```
+```graphql
 booksByTitle(first:10 after:"TW9ieSBEaWNr") {
   ...
 }
@@ -121,7 +123,7 @@ When we request messages for a given group, we don’t use the `messages` query,
 
 So if we query for `Messages` within a `Group` with a Relay Cursor Connection shape, it needs to look something like this:
 
-```
+```graphql
 group(id: 1) {
   id
   name
@@ -145,7 +147,7 @@ group(id: 1) {
 
 Cool! Let's first modify our Schema to fit this shape.
 
-We need to declare a three new types in our Schema for Relay Cursor Connections:
+We need to declare three new types in our Schema for Relay Cursor Connections:
 
 1. `MessageConnection` -- the wrapper type that will hold the `edges` and `pageInfo` fields.
 2. `MessageEdge` -- the type used for `edges` and will hold the `node` and `cursor` fields.
@@ -164,7 +166,7 @@ Our first order of business should be to define the cursor we will use to track 
 
 When we create new `Messages` in SQLite, the new `Message`'s `id` is based on an monatomic incrementing integer -- a fancy way of saying that newer `Messages` will always a have higher `id` than older Messages. We can use this neat feature to base our cursor on the `Message` `id`! For example, if we requested the first 10 `Messages` after the `Message` with `id = 25`, we could run the following sequelize query:
 
-```
+```js
 Message.findAll({
   where: {
     groupId: 1, // get messages within Group with id = 1
@@ -185,7 +187,7 @@ Okay, enough theory -- here's the code:
 
 {{{diffStep 5.2}}}
 
-A quick test in GraphIQL shows everything is looking good: ![GraphIQL Image](https://s3-us-west-1.amazonaws.com/tortilla/chatty/step5-2.png)
+A quick test in GraphQL Playground shows everything is looking good: ![Playground Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step5-2.png)
 
 # Pagination in React Native
 We’re going to update our React Native client to paginate messages with an infinite scroller when viewing a group thread.
@@ -216,7 +218,7 @@ We finally need to update the `Messages` component to call `this.props.loadMoreE
 
 {{{diffStep 5.6}}}
 
-Boot it up for some pagination! ![Pagination Gif](https://s3-us-west-1.amazonaws.com/tortilla/chatty/step5-6.gif)
+Boot it up for some pagination! ![Pagination Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step5-6.gif)
 
 We can also modify the Groups component to preview the most recent message for each group. Using the same methodology, we’ll first update `USER_QUERY`:
 
@@ -226,7 +228,7 @@ And then we update the layout of the Group list item component in `Groups`:
 
 {{{diffStep 5.8}}}
 
-![Layout Image](https://s3-us-west-1.amazonaws.com/tortilla/chatty/step5-8.png)
+![Layout Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step5-8.png)
 
 # Refreshing Data
 We can apply some of the tricks we’ve just learned to also give users a way to manually refresh data. Currently, if a user sends a message to a group, this new message won’t show up as the latest message on the groups page.
@@ -241,7 +243,7 @@ We also need to pass a `refreshing` parameter to `FlatList` to let it know when 
 
 {{{diffStep 5.9}}}
 
-Boot it! ![Refetch Gif](https://s3-us-west-1.amazonaws.com/tortilla/chatty/step5-9.gif)
+Boot it! ![Refetch Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step5-9.gif)
 
 Now that we can see manual refreshing is working, let's fix up `update` within `sendMessage` to update the `USER_QUERY` query so manual updating is only required for strange edge cases and not all cases!
 

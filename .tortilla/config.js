@@ -1,6 +1,6 @@
 module.exports = {
   render: {
-    blacklist: /\.(?:lock)$/g,
+    blacklist: /((package-lock.json)|\.(?:lock)$)/g,
     transformations: {
       'modified-medium': (Handlebars, view) => {
         return view
@@ -9,7 +9,7 @@ module.exports = {
 
             const content = Handlebars.escapeExpression(chunk)
               // Add ellipses between new code
-              .replace(/^@.+$/m, '\n...\n')           
+              .replace(/^@.+$/m, '\n...\n')
               // Remove removals
               .replace(/\n\-.+/g, '')
               // Bold additions

@@ -16,7 +16,7 @@ Starting with the very first commit, every commit in Chatty represents the next 
 
 # Steps
 1. [Setup](/.tortilla/manuals/views/step1.md)
-2. [GraphQL Queries with Express](/.tortilla/manuals/views/step2.md)
+2. [GraphQL Queries with ApolloServer](/.tortilla/manuals/views/step2.md)
 3. [GraphQL Queries with React Apollo](/.tortilla/manuals/views/step3.md)
 4. [GraphQL Mutations & Optimistic UI](/.tortilla/manuals/views/step4.md)
 5. [GraphQL Pagination](/.tortilla/manuals/views/step5.md)
@@ -25,9 +25,9 @@ Starting with the very first commit, every commit in Chatty represents the next 
 8. [GraphQL Input Types](/.tortilla/manuals/views/step8.md)
 
 # Installing
-```
-yarn                               # install server dependencies
-cd client && yarn                  # install client dependencies
+```sh
+npm install                       # install server dependencies
+cd client && npm install          # install client dependencies
 ```
 For Steps 7 and higher, please enter your configuration variables in `.env`:
 ```
@@ -36,8 +36,8 @@ JWT_SECRET=your_secret
 ```
 
 # Getting Started
-```
-yarn start                         # start the server
+```sh
+npm start                         # start the server
 cd client && react-native run-ios  # start RN client
 ```
 
