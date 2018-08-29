@@ -23,9 +23,6 @@ Starting with the very first commit, every commit in Chatty represents the next 
 6. [GraphQL Subscriptions](/.tortilla/manuals/views/step6.md)
 7. [GraphQL Authentication](/.tortilla/manuals/views/step7.md)
 8. [GraphQL Input Types](/.tortilla/manuals/views/step8.md)
-9. [Apollo Cache Control](/.tortilla/manuals/views/step9.md)
-10. [Apollo Optics and Optimization](/.tortilla/manuals/views/step10.md)
-11. [Push Notifications](/.tortilla/manuals/views/step11.md)
 
 # Installing
 ```
@@ -36,23 +33,11 @@ For Steps 7 and higher, please enter your configuration variables in `.env`:
 ```
 # use your own secret!!!
 JWT_SECRET=your_secret
-FIREBASE_SERVER_KEY=your_key
-
-AWS_BUCKET=your_bucket_name
-AWS_ACCESS_KEY_ID=your_access_key_id
-AWS_SECRET_ACCESS_KEY=your_secret_access_key
-AWS_REGION=your_region
-```
-
-For Steps 11 and higher, please enter your computer's local IP Address in `/client/src/app.js`:
-
-```
-const URL = '192.168.100.12:8080'; // set your comp's url here
 ```
 
 # Getting Started
 ```
-yarn start                         # start the server     
+yarn start                         # start the server
 cd client && react-native run-ios  # start RN client
 ```
 
@@ -62,7 +47,7 @@ This project welcomes code contributions, bug reports and feature requests. Plea
 # License
 MIT License
 
-Copyright (c) 2017 Simon Tucker
+Copyright (c) 2018 Simon Tucker
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

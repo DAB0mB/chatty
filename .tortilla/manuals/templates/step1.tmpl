@@ -119,7 +119,7 @@ Using the `Mocks` Object, we will be able to convert all Strings returned by Gra
 We want to add a GraphQL endpoint to our server in `server/index.js` so clients can use GraphQL with our server. First we need to add the following dependencies:
 
 ```
-yarn add body-parser graphql graphql-server-express graphql-tools
+yarn add body-parser graphql apollo-server-express graphql-tools
 ```
 
 We’ll rewrite `server/index.js` as follows (explanation below):
@@ -162,24 +162,26 @@ So I’m going to place the `Chatty` component code into `client/src/app.js` and
 
 ## Adding Apollo to React Native
 
-We’re going to modify `app.component.js` to use [React-Apollo](http://dev.apollodata.com/react/) and [Redux](http://redux.js.org/).
+We’re going to modify `app.component.js` to use [React-Apollo](http://dev.apollodata.com/react/) and [Redux](http://redux.js.org/). While Apollo can be used sans Redux, the developer experience for React Native is much sweeter with Redux for monitoring our app's state, as you'll soon see.
 
-Add the following dependencies:
+We need to add a bunch of Apollo packages and a couple Redux ones:
 ```
 # **make sure we're adding all react native and client related packages to package.json in the client folder!!!**
 cd client
 
-yarn add apollo-client graphql-tag react-apollo redux react-redux redux-devtools-extension
+yarn add apollo-cache-redux apollo-client apollo-link apollo-link-error apollo-link-http apollo-link-redux graphql graphql-tag react-apollo react-redux redux redux-devtools-extension
 ```
 We need to do the following:
 1. Create a Redux store
 2. Create an Apollo client
-3. Connect our Apollo client to our GraphQL endpoint
-4. Attach the Apollo client reducer to the Redux store
+3. Connect our Apollo client to our GraphQL endpoint via `apollo-link-http`
+4. Catch and log any GraphQL errors via `apollo-link-error`
+5. Connect Redux to our Apollo workflow via `apollo-link-redux`. This will let us track Apollo events as Redux actions!
+6. Set our Apollo client's data store (cache) to Redux via `apollo-cache-redux`
 
 We can also swap out `compose` for `composeWithDevTools`, which will let us observe our Redux state remotely via [React Native Debugger](https://github.com/jhen0409/react-native-debugger).
 
-{{{diffStep "1.10" files="client/src/app.js"}}}
+{{{diffStep "1.10"}}}
 
 Finally, we wrap our `App` component in the `ApolloProvider` component from `react-apollo`. `ApolloProvider` connects our app to Redux and Apollo at the same time.
 

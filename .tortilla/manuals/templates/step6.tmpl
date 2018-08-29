@@ -110,14 +110,14 @@ The steps are as follows:
 All set!
 
 # GraphQL Subscriptions on the Client
-Time to add subscriptions inside our React Native client. We’ll start by adding `subscriptions-transport-ws` to our client:
+Time to add subscriptions inside our React Native client. We’ll start by adding a few packages to our client:
 ```
 # make sure you're adding the package in the client!!!
 cd client
-yarn add subscriptions-transport-ws
+yarn add apollo-link-ws apollo-utilities subscriptions-transport-ws
 ```
 
-We’ll use `subscription-transport-ws` on the client to connect to our WebSocket endpoint and extend the `networkInterface` we pass into `ApolloClient` to handle subscriptions on the endpoint:
+We’ll use `subscription-transport-ws` on the client to create a WebSocket client connected to our `/subscriptions` endpoint. We then add this client into our Apollo workflow via `apollo-link-ws`. We need to split the various operations that flow through Apollo into `subscription` operations and non-subscription (`query` and `mutation`) and handle them with the appropriate links:
 
 {{{diffStep "6.10" files="client/src/app.js"}}}
 

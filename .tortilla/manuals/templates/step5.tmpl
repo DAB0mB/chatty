@@ -24,7 +24,7 @@ Think the o’s in Goooooogle search results. Page numbering in its naive form i
 SELECT * FROM messages ORDER BY created_at DESC LIMIT 100 OFFSET 300;
 ```
 
-Page numbering’s strength is in its simplicity. It’s a great strategy for dealing with static content or ordered content that won’t likely change duration a user session.
+Page numbering’s strength is in its simplicity. It’s a great strategy for dealing with static content or ordered content that won’t likely change during a user session.
 
 Page numbering’s weakness is dealing with dynamic data. When items are added or removed from our dataset, we can end up skipping an element or showing the same element twice. For example, if we added a new element to our data set that belongs first in the paginated results, navigating to the next page will show the last element on the current page for a second time. Similarly, if the first element gets deleted, navigating to the next page would skip what would have been the first element on the new page.
 
@@ -48,7 +48,7 @@ booksByTitle(after: "Moby Dick", pageSize: 10) {
   }
   books {
     title
-    author {   
+    author {
       firstName
       lastName
     }
@@ -155,7 +155,7 @@ We also need to change the `Group`'s `messages` field to take in Relay Cursor Co
 
 {{{diffStep 5.1}}}
 
-Now instead of asking for all messages when we query for a group or groups, we will specify the `first` n `MessageEdges` `after` the cursor supplied (or the `last` n `MessageEdges` `before` the cursor supplied). 
+Now instead of asking for all messages when we query for a group or groups, we will specify the `first` n `MessageEdges` `after` the cursor supplied (or the `last` n `MessageEdges` `before` the cursor supplied).
 
 ## Relay Cursor Connection Resolvers
 We need to update our resolvers in `server/data/resolvers.js` to meet the spec we've just specified.
@@ -166,7 +166,7 @@ When we create new `Messages` in SQLite, the new `Message`'s `id` is based on an
 
 ```
 Message.findAll({
-  where: { 
+  where: {
     groupId: 1, // get messages within Group with id = 1
     id: { $lt: 25 }, // get messages before Message #25 -- i.e. message.id < 25
   },
@@ -177,7 +177,7 @@ Message.findAll({
 
 However, remember that we should use a **serializable opaque** cursor, not an integer. We'll simply convert the `Message` `id` to a base64 string to meet this spec.
 
-After we receive the `Messages` from our sequelize query, we still need to convert our results to fit our `MessageConnection` type. We'll need to iterate through our returned Messages and create an `edge` for each one, with the `Message` as the node, and `base64(Message.id)` as the `cursor`. 
+After we receive the `Messages` from our sequelize query, we still need to convert our results to fit our `MessageConnection` type. We'll need to iterate through our returned Messages and create an `edge` for each one, with the `Message` as the node, and `base64(Message.id)` as the `cursor`.
 
 Lastly, we need to determine `hasNextPage`/`hasPreviousPage`. This can be simply accomplished by querying whether there is another `Message` after/before the returned results. It's also a good idea to keep `pageInfo` querying as separate functions in case the client doesn't request it -- a nice little performance enhancement.
 
@@ -233,7 +233,7 @@ We can apply some of the tricks we’ve just learned to also give users a way to
 
 We could solve this problem by modifying `update` within `sendMessage` to update the `USER_QUERY` query. But let’s hold off on implementing that fix and use this opportunity to test manual refreshing.
 
-In addition to `fetchMore`, `graphql` also exposes a [`refetch`](http://dev.apollodata.com/core/apollo-client-api.html#ObservableQuery.refetch) function on the data prop. Executing this function will force the query to refetch data. 
+In addition to `fetchMore`, `graphql` also exposes a [`refetch`](http://dev.apollodata.com/core/apollo-client-api.html#ObservableQuery.refetch) function on the data prop. Executing this function will force the query to refetch data.
 
 We can modify our `FlatList` to use a built-in [`RefreshControl`](https://facebook.github.io/react-native/docs/refreshcontrol.html) component via [`onRefresh`](https://facebook.github.io/react-native/docs/flatlist.html#onrefresh). When the user pulls down the list, `FlatList` will trigger `onRefresh` where we will `refetch` the `user` query.
 
