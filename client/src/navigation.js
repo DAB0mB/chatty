@@ -64,7 +64,7 @@ export const navigationReducer = (state = initialState, action) => {
   switch (action.type) {
     case REHYDRATE:
       // convert persisted data to Immutable and confirm rehydration
-      if (!action.payload.auth || !action.payload.auth.jwt) {
+      if (!action.payload || !action.payload.auth || !action.payload.auth.jwt) {
         const { routes, index } = state;
         if (routes[index].routeName !== 'Signin') {
           nextState = AppNavigator.router.getStateForAction(

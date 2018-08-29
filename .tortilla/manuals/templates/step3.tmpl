@@ -41,7 +41,7 @@ We can update `app.js` to use our new Redux connected `AppWithNavigationState` c
 
 {{{diffStep 3.2}}}
 
-Refresh the app to see some simple tabs: ![Tabs Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step3-2.gif)
+Refresh the app to see some simple tabs: ![Tabs Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step3-2.gif)
 
 On the `Chats` tab, we want to show a list of the user’s groups. We’ll create a `Groups` screen component in a new file `client/src/screens/groups.screen.js`:
 
@@ -69,7 +69,7 @@ Finally, modify `Groups` to handle pressing a `Group`. We can use `props.navigat
 
 Our app should now have simple layouts and routing for showing groups and pressing into a group to show that group’s message thread:
 
-![Messages Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step3-6.gif)
+![Messages Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step3-6.gif)
 
 # GraphQL Queries with React-Apollo
 Time to connect our data!
@@ -136,7 +136,7 @@ Finally, we’ll modify our Groups component to render a loading screen while we
 
 By passing in `{id: 1}` for our variables, we are pretending to be logged in as the User with id = 1. In Part 7 of these tutorials, we will add authentication to our application so we don’t have to fake it anymore.
 
-With our server running, if we refresh the application, we should see the groups displayed for User id = 1: ![User Groups Img](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step3-8.png)
+With our server running, if we refresh the application, we should see the groups displayed for User id = 1: ![User Groups Img](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step3-8.png)
 
 ## A Few Different Ways to Connect GraphQL and React
 `react-apollo` actually gives us [multiple ways to connect data from a GraphQL Query to a React component](http://dev.apollodata.com/react/higher-order-components.html).
@@ -221,4 +221,4 @@ Finally, let’s attach our `GROUP_QUERY` to the `Messages` component:
 
 {{{diffStep "3.10"}}}
 
-If we fire up the app, we should see our messages: ![Result Img](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step3-10.gif)
+If we fire up the app, we should see our messages: ![Result Img](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step3-10.gif)

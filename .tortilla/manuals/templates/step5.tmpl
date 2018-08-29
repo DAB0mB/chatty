@@ -187,7 +187,7 @@ Okay, enough theory -- here's the code:
 
 {{{diffStep 5.2}}}
 
-A quick test in GraphQL Playground shows everything is looking good: ![Playground Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step5-2.png)
+A quick test in GraphQL Playground shows everything is looking good: ![Playground Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step5-2.png)
 
 # Pagination in React Native
 We’re going to update our React Native client to paginate messages with an infinite scroller when viewing a group thread.
@@ -218,7 +218,7 @@ We finally need to update the `Messages` component to call `this.props.loadMoreE
 
 {{{diffStep 5.6}}}
 
-Boot it up for some pagination! ![Pagination Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step5-6.gif)
+Boot it up for some pagination! ![Pagination Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step5-6.gif)
 
 We can also modify the Groups component to preview the most recent message for each group. Using the same methodology, we’ll first update `USER_QUERY`:
 
@@ -228,7 +228,7 @@ And then we update the layout of the Group list item component in `Groups`:
 
 {{{diffStep 5.8}}}
 
-![Layout Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step5-8.png)
+![Layout Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step5-8.png)
 
 # Refreshing Data
 We can apply some of the tricks we’ve just learned to also give users a way to manually refresh data. Currently, if a user sends a message to a group, this new message won’t show up as the latest message on the groups page.
@@ -243,7 +243,7 @@ We also need to pass a `refreshing` parameter to `FlatList` to let it know when 
 
 {{{diffStep 5.9}}}
 
-Boot it! ![Refetch Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step5-9.gif)
+Boot it! ![Refetch Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step5-9.gif)
 
 Now that we can see manual refreshing is working, let's fix up `update` within `sendMessage` to update the `USER_QUERY` query so manual updating is only required for strange edge cases and not all cases!
 

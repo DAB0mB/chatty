@@ -73,7 +73,7 @@ Let’s create `server/data/mocks.js` and code up some mocks with `faker` (`npm 
 
 {{{diffStep 2.3}}}
 
-While the mocks for `User`, `Group`, and `Message` are pretty simple looking, they’re actually quite powerful. If we run a query in GraphQL Playground, we'll receive fully populated results with backfilled properties, including example list results. Also, by adding details to our mocks for the `user` query, we ensure that the `email` field for the `User` and `from` field for their `messages` match the query parameter for `email`: ![Playground Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step2-3.png)
+While the mocks for `User`, `Group`, and `Message` are pretty simple looking, they’re actually quite powerful. If we run a query in GraphQL Playground, we'll receive fully populated results with backfilled properties, including example list results. Also, by adding details to our mocks for the `user` query, we ensure that the `email` field for the `User` and `from` field for their `messages` match the query parameter for `email`: ![Playground Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step2-3.png)
 
 # Connecting Real Data
 Let’s connect our Schema to some real data now. We’re going to start small with a [SQLite](https://www.sqlite.org/) database and use the [`sequelize`](http://docs.sequelizejs.com/en/v3/) ORM to interact with our data.
@@ -150,6 +150,6 @@ Finally, we can pass our resolvers to `ApolloServer` in `server/index.js` to rep
 
 {{{diffStep 2.7}}}
 
-Now if we run a Query in GraphQL Playground, we should get some real results straight from our database: ![Playground Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step2-7.png)
+Now if we run a Query in GraphQL Playground, we should get some real results straight from our database: ![Playground Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step2-7.png)
 
 We’ve got the data. We’ve designed the Schema with Queries. Now it’s time to get that data in our React Native app!

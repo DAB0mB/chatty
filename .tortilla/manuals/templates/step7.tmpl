@@ -146,11 +146,11 @@ For now, we’ll just use GraphQL Playground to make sure our code is performing
 
 Here are the steps to test our protected GraphQL endpoint in GraphQL Playground:
 
-1. Use the `signup` or `login` mutation to receive a JWT ![Login Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step7-11-1.png)
+1. Use the `signup` or `login` mutation to receive a JWT ![Login Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step7-11-1.png)
 2. Apply the JWT to the Authorization Header for future requests and make whatever authorized `query` or `mutation` requests we want
-![Query Image Success](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step7-11-2.png)
-![Query Image Fail](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step7-11-3.png)
-![Query Image Partial](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step7-11-4.png)
+![Query Image Success](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step7-11-2.png)
+![Query Image Fail](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step7-11-3.png)
+![Query Image Partial](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step7-11-4.png)
 
 # JWT Authentication for Subscriptions
 Our Queries and Mutations are secure, but our Subscriptions are wide open. Right now, any user could subscribe to new messages for all groups, or track when any group is created. The security we’ve already implemented limits the `Message` and `Group` fields a hacker could view, but that’s not good enough! Secure all the things!
@@ -203,7 +203,7 @@ Lastly, we need to modify the `Groups` screen to push the `Signin` modal and ski
 
 {{{diffStep 7.15 files="client/src/screens/groups.screen.js"}}}
 
-Let’s test out our layout: ![Fake Signin Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step7-15.gif)
+Let’s test out our layout: ![Fake Signin Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step7-15.gif)
 
 # Persisted authentication with React Native and Redux
 Time to add authentication infrastructure to our React Native client! When a user signs up or logs in, the server is going to return a JWT. Whenever the client makes a GraphQL HTTP request to the server, it needs to pass the JWT in the Authorization Header to verify the request is being sent by the user.
@@ -268,7 +268,7 @@ We connect these mutations and our Redux store to the `Signin` component with `c
 
 We attached `auth` from our Redux store to `Signin` via `connect(mapStateToProps)`. When we sign up or log in, we call the associated mutation (`signup` or `login`), receive the JWT and id, and dispatch the data with `setCurrentUser`. In `componentWillReceiveProps`, once `auth.jwt` exists, we are logged in and pop the Screen. We’ve also included some simple error messages if things go wrong.
 
-Let’s check it out! ![Signin Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step7-24.gif)
+Let’s check it out! ![Signin Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step7-24.gif)
 
 # Apollo-Client Authentication Middleware
 We need to add Authorization Headers to our GraphQL requests from React Native before we can resume retrieving data from our auth protected server. We accomplish this by using middleware that will attach the headers to every request before they are sent out. Middleware works very elegantly within the `apollo-link` ecosystem. We just need to add a couple new links! Fortunately, `apollo-link-context` and `apollo-link-error` are perfect for our requirements and work really nicely with our Redux setup. We can simply add the following in `client/src/app.js`:
@@ -317,7 +317,7 @@ Though it’s typically best practice to keep reducers pure (not triggering acti
 
 Let’s run it!
 
-![Logout Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step7-29.gif)
+![Logout Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step7-29.gif)
 
 ## Refactoring Queries and Mutations
 We need to update all our client-side Queries and Mutations to match our modified Schema. We also need to update the variables we pass to these Queries and Mutations through `graphql` and attach to components.
@@ -342,7 +342,7 @@ We need to make similar changes in every other one of our components before we�
 
 When everything is said and done, we should have a beautifully running Chatty app 📱‼️‼️
 
-![Chatty Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step7-32.gif)
+![Chatty Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step7-32.gif)
 
 # 🎉 CONGRATULATIONS!!! 🎉
 We made it! We made a secure, real-time chat app with React Native and GraphQL. How cool is that?! More importantly, we now have the skills and knowhow to make pretty much anything we want with some of the best tools out there.

@@ -38,7 +38,7 @@ We also need to modify our resolvers to handle our new mutation. We’ll modify 
 
 That’s it! When a client uses `createMessage`, the resolver will use the `Message` model passed by our connector and call `Message.create` with arguments from the mutation. The `Message.create` function returns a Promise that will resolve with the newly created `Message`.
 
-We can easily test our newly minted `createMessage` mutation in GraphQL Playground to make sure everything works: ![Create Message Img](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step4-2.png)
+We can easily test our newly minted `createMessage` mutation in GraphQL Playground to make sure everything works: ![Create Message Img](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step4-2.png)
 
 # Designing the Input
 Wow, that was way faster than when we added queries! All the heavy lifting we did in the first 3 parts of this series is starting to pay off….
@@ -66,15 +66,15 @@ Let’s add `MessageInput` to the bottom of the `Messages` screen and create a p
 
 {{{diffStep 4.4}}}
 
-It should look like this: ![Message Input Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step4-4.png)
+It should look like this: ![Message Input Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step4-4.png)
 
-But **don’t be fooled by your simulator!** This UI will break on a phone because of the keyboard: ![Broken Input Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step4-4-2.png)
+But **don’t be fooled by your simulator!** This UI will break on a phone because of the keyboard: ![Broken Input Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step4-4-2.png)
 
 You are not the first person to groan over this issue. For you and the many groaners out there, the wonderful devs at Facebook have your back. [`KeyboardAvoidingView`](https://facebook.github.io/react-native/docs/keyboardavoidingview.html) to the rescue!
 
 {{{diffStep 4.5}}}
 
-![Fixed Input Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step4-5.png)
+![Fixed Input Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step4-5.png)
 
 Our layout looks ready. Now let’s make it work!
 
@@ -154,7 +154,7 @@ Okay, so let’s put it all together in `messages.screen.js`:
 
 By attaching `createMessage` with `compose`, we attach a `createMessage` function to the component’s `props`. We call `props.createMessage` in `send` with the required variables (we’ll keep faking the user for now). When the user presses the send button, this method will get called and the mutation should execute.
 
-Let’s run the app and see what happens: ![Send Fail Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step4-9.gif)
+Let’s run the app and see what happens: ![Send Fail Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step4-9.gif)
 
 What went wrong? Well technically nothing went wrong. Our mutation successfully executed, but we’re not seeing our message pop up. Why? **Running a mutation doesn’t automatically update our queries with new data!** If we were to refresh the page, we’d actually see our message. This issue only arrises when we are adding or removing data with our mutation.
 
@@ -164,7 +164,7 @@ Our modified `createMessage` should look like this:
 
 {{{diffStep "4.10"}}}
 
-In `update`, we first retrieve the existing data for the query we want to update (`GROUP_QUERY`) along with the specific variables we passed to that query. This data comes to us from our Redux store of Apollo data. We check to see if the new `Message` returned from `createMessage` already exists (in case of race conditions down the line), and then update the previous query result by sticking the new message in front. We then use this modified data object and rewrite the results to the Apollo store with `store.writeQuery`, being sure to pass all the variables associated with our query. This will force `props` to change reference and the component to rerender. ![Fixed Send Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step4-10.gif)
+In `update`, we first retrieve the existing data for the query we want to update (`GROUP_QUERY`) along with the specific variables we passed to that query. This data comes to us from our Redux store of Apollo data. We check to see if the new `Message` returned from `createMessage` already exists (in case of race conditions down the line), and then update the previous query result by sticking the new message in front. We then use this modified data object and rewrite the results to the Apollo store with `store.writeQuery`, being sure to pass all the variables associated with our query. This will force `props` to change reference and the component to rerender. ![Fixed Send Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step4-10.gif)
 
 # Optimistic UI
 ### But wait! There’s more!
@@ -180,7 +180,7 @@ Let’s also modify our UI a bit so that our `FlatList` scrolls to the bottom wh
 
 {{{diffStep 4.12}}}
 
-![Scroll to Bottom Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step4-12.gif)
+![Scroll to Bottom Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step4-12.gif)
 
 ### 🔥🔥🔥!!!
 
@@ -194,6 +194,6 @@ Now that we’re comfortable using GraphQL Queries and Mutations and some tricky
 3. Build GraphQL Queries and Mutations for our new Screens and connect them using `react-apollo`
 4. Include `update` for these new mutations where necessary
 
-If you want to see some UI or you want a hint or you don’t wanna write any code, that’s cool too! Below is some code with these features added. ![Groups Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step4-13.gif)
+If you want to see some UI or you want a hint or you don’t wanna write any code, that’s cool too! Below is some code with these features added. ![Groups Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step4-13.gif)
 
 {{{diffStep 4.13}}}

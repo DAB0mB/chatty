@@ -75,7 +75,7 @@ subscription messageAdded($groupIds: [Int]){
 }
 ```
 
-Let’s check out GraphQL Playground and see if everything works: ![Playground Gif](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step6-4.gif)
+Let’s check out GraphQL Playground and see if everything works: ![Playground Gif](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step6-4.gif)
 
 ## New Subscription Workflow
 We’ve successfully set up GraphQL Subscriptions on our server.
@@ -140,7 +140,7 @@ Take a look at the updated code in our `Messages` component in `client/src/scree
 
 After we connect `subscribeToMore` to the component’s props, we attach a subscription property on the component (so there’s only one) which initializes `subscribeToMore` with the required parameters. Inside `updateQuery`, when we receive a new message, we make sure its not a duplicate, and then unshift the message onto our collection of messages.
 
-Does it work?! ![Working Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step6-11.gif)
+Does it work?! ![Working Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step6-11.gif)
 
 We need to subscribe to new Groups and Messages so our Groups component will update in real time. The Groups component needs to subscribe to `groupAdded` and `messageAdded` because in addition to new groups popping up when they’re created, the latest messages should also show up in each group’s preview.
 
@@ -163,4 +163,4 @@ The simplest way to handle this issue is to refetch all relevant queries when ou
 
 {{{diffStep 6.13}}}
 
-Final product: ![Final Image](https://github.com/srtucker22/chatty/blob/master/.tortilla/media/step6-13.gif)
+Final product: ![Final Image](https://raw.githubusercontent.com/srtucker22/chatty/master/.tortilla/media/step6-13.gif)
